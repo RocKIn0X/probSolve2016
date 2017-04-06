@@ -5,35 +5,39 @@
 using namespace std;
 
 int main() {
-  int n, k, cost, money;
+  int n, k, cost, prevCost, maxCost, money;
   map<int, int> m;
   map<int, int>::iterator iter = m.begin();
 
-  scanf("%d %d", &n, &k);;
+  scanf("%d %d", &n, &k);
 
-  for (int i = 0; i < n; i++) {
+  for (int i = 1; i <= n; i++) {
     scanf("%d", &cost);
-    m[i] = cost;
+
+    if (i == 1) {
+      m[cost] = i;
+      m[cost-1] = 0;
+    } else {
+      cost += prevCost;
+      m[cost] = i;
+      m[cost-1] = i - 1;
+    }
+    prevCost = cost;
   }
 
-  for (int i = 0; i < k; i++) {
-    int count = 0;
-    iter = m.begin();
+  maxCost = cost;
 
+  for (int i = 0; i < k; i++) {
     scanf("%d", &money);
 
-    while (iter != m.end()) {
-      money -= iter->second;
+    iter = m.lower_bound(money);
 
-      if (money < 0) {
-        break;
-      }
-
-      count++;
-      iter++;
+    if (money < maxCost) {
+      printf("%d\n", iter->second);
+    } else {
+      printf("%d\n", n);
     }
 
-    printf("%d\n", count);
   }
 
   return 0;
