@@ -6,6 +6,7 @@ using namespace std;
 
 int main() {
   int n;
+  int order[4];
   char op;
   string str;
 
