@@ -107,12 +107,12 @@ void bfs(int u)
 int main()
 {
   read_input();
-  printf("data\n\n");
-  print_output();
-  init();
-  printf("\n\ndfs\n\n");
-  dfs_stack(0);
-  init();
+  //printf("data\n\n");
+  //print_output();
+  //init();
+  //printf("\n\ndfs\n\n");
+  //dfs_stack(0);
+  //init();
   printf("\n\nbfs\n\n");
   bfs(0);
 
