@@ -13,12 +13,6 @@ queue<int> myqueue;
 int deg[MAX_M];
 int state[MAX_N];
 
-void init_bpt() {
-  for (int i = 0; i < n; i++) {
-    state[i] = 3; //default state
-  }
-}
-
 void read_input() {
   scanf("%d %d", &n, &m);
   for(int i = 0; i < n; i++) {
@@ -38,15 +32,19 @@ void read_input() {
 bool visited[MAX_N];
 
 void init() {
-  for(int i=0; i<n; i++)
+  queue<int> empty;
+  swap(myqueue, empty);
+
+  for(int i=0; i<n; i++) {
     visited[i] = false;
+    state[i] = 3; //default state
+    adj[i].clear();
+  }
 }
 
 bool bfs(int u) {
-  bool check = true;
-
-  myqueue.push(u);
   state[u] = 1;
+  myqueue.push(u);
   while(!myqueue.empty()) {
     int node = myqueue.front();
     myqueue.pop();
@@ -57,32 +55,18 @@ bool bfs(int u) {
     visited[node] = true;
     for (int i=0; i<deg[node]; i++) {
       int v = adj[node][i];
-      if (!visited[v]) {
-        myqueue.push(v);
+      myqueue.push(v);
+
+      //printf("node: %d, v: %d, stateN: %d, stateV: %d\n", node+1, v+1, state[node], state[v]);
+      if (state[node] == state[v]) {
+        return false;
       }
 
-      if (state[v] == 3) {
-        if (state[node] == 1) {
-          state[v] = 2;
-          //printf("%d %d\n", v, state[v]);
-        } else if (state[node] == 2) {
-          state[v] = 1;
-          //printf("%d %d\n", v, state[v]);
-        }
-      } else {
-        //printf("node: %d v: %d stateNode: %d stateV: %d\n", node, v, state[node], state[v]);
-        //printf("%s\n", (state[node] == state[v]) ? "true" : "false");
-        if (state[node] == state[v]) {
-          printf("hey\n");
-          check = false;
-          break;
-          //printf("%s\n", (state[node] == state[v]) ? "true" : "false");
-        }
+      if (state[node] == 1) {
+        state[v] = 2;
+      } else if (state[node] == 2) {
+        state[v] = 1;
       }
-    }
-
-    if (check == false) {
-      return false;
     }
   }
 
@@ -97,7 +81,6 @@ int main () {
   for (int i = 0; i < num; i++) {
     read_input();
     init();
-    init_bpt();
 
     for (int j = 0; j < n; j++) {
       if (visited[j] == false) {
