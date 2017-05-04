@@ -1,3 +1,4 @@
+
 #include <iostream>
 
 using namespace std;
@@ -39,8 +40,8 @@ void sum(char*& ptr1, char*& ptr2, char* first1, char* first2) {
 }
 
 main () {
-  char num1[301];
-  char num2[301];
+  char num1[302];
+  char num2[302];
   char* num1Ptr;
   char* num2Ptr;
   char* first1;
