@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <stack>
 #define MAX 100005
 
 using namespace std;
@@ -7,8 +6,6 @@ using namespace std;
 int data[MAX];
 int arr[MAX];
 int n, count, len;
-stack<int> incList;
-
 
 void inc() {
   len = 0;
