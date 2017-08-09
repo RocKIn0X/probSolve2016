@@ -1,5 +1,6 @@
 #include <vector>
 #include <cstdio>
+#include <iostream>
 #include <queue>
 #include <map>
 #define MAX_N 100000
@@ -7,19 +8,30 @@
 
 using namespace std;
 
-int n, m, c;
+int n, m, k, h;
 
 vector<int> adj[MAX_N];
 queue<int> myqueue;
 map<int, int> levelMap;
 int deg[MAX_M];
 int state[MAX_N];
+int hos[MAX_N];
+int quality[MAX_N];
 
 void read_input() {
-  scanf(" %d %d %d", &n, &m, &c);
+  scanf(" %d %d %d %d", &n, &m, &k, &h);
   for(int i = 0; i < n; i++) {
     deg[i] = 0;
   }
+
+  for (int i = 0; i < k; i++) {
+    cin >> hos[i];
+  }
+
+  for (int i = 0; i < k; i++) {
+    cin >> quality[i];
+  }
+
   for(int i = 0; i < m; i++) {
     int u, v;
     scanf("%d %d", &u, &v); u--; v--;
@@ -78,17 +90,15 @@ int bfs(int u, int c) {
 
 int main () {
   int sum = 0;
+  int temp;
   read_input();
   init();
 
-  for (int i = 0; i < n; i++) {
-    init();
-    int temp = bfs(i, c);
+  for (int i = 0; i < k; i++) {
+    temp = bfs(hos[i], quality[i] + h);
     levelMap.clear();
 
-    if (temp > sum) {
-      sum = temp;
-    }
+    sum += temp;
   }
 
   printf("%d\n", sum);

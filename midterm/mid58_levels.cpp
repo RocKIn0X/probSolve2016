@@ -1,10 +1,11 @@
-#include <vector>
+#include <map>
 #include <cstdio>
 #define MAX_N 3
 
 using namespace std;
 
-vector<int> type[MAX_N];
+typedef pair<int,int> type;
+map<type, int> mission;
 bool pass[MAX_N];
 
 void reset() {
@@ -29,31 +30,39 @@ int main () {
   lv = 1;
   scanf("%d %d", &n, &m);
 
-  for (int i = 0; i < n-1; i++) {
+  for (int i = 1; i <= n-1; i++) {
     scanf("%d %d %d", &a, &b, &c);
 
-    type[i].push_back(a);
-    type[i].push_back(b);
-    type[i].push_back(c);
+    type m1 = type(i, 1);
+    type m2 = type(i, 2);
+    type m3 = type(i, 3);
+
+    mission[m1] = a;
+    mission[m2] = b;
+    mission[m3] = c;
   }
 
   for (int i = 0; i < m; i++) {
     scanf("%d %d %d", &a, &b, &c);
 
-    if (type[lv-1][0] <= a) {
+    type m1 = type(lv, 1);
+    type m2 = type(lv, 2);
+    type m3 = type(lv, 3);
+
+    if (mission[m1] <= a) {
       pass[0] = true;
     }
 
-    if (type[lv-1][1] <= b) {
+    if (mission[m2] <= b) {
       pass[1] = true;
     }
 
-    if (type[lv-1][2] <= c) {
+    if (mission[m3] <= c) {
       pass[2] = true;
     }
 
     if (allTypePass()) {
-      if (lv != MAX_N) {
+      if (lv < MAX_N) {
         lv++;
         reset();
       }

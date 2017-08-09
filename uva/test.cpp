@@ -1,13 +1,35 @@
-#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <stack>
 
-main()
-{
-  int x,y;
-  do {
-    int r = scanf("%d %d",&x,&y);
-    if(r!=2) {
-      break;
+using namespace std;
+
+stack<string> strStack;
+
+int main () {
+    char text[100005];
+    char tmp_c[100005];
+    string tmp;
+    int index = 0;
+
+    cin >> text;
+
+    for (int i = 0; i < strlen(text); i++) {
+        if (text[i] != '_') {
+            tmp_c[index] = text[i];
+            index++;
+        } else {
+            tmp(tmp_c);
+            strStack.push(tmp);
+        }
     }
-    printf("%d\n",x+y);
-  } while(true);
+
+    while (!strStack.empty()) {
+        string temp = strStack.top();
+        strStacl.pop();
+
+        printf("%s\n", temp);
+    }
+
+    return 0;
 }
